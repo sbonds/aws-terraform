@@ -41,6 +41,7 @@ else
   bail "Unable to verify SHA256 digest for .zip"
 fi
 
+# Supposedly this is a symlink. Check first?
 rm -f terraform
 
 if unzip "terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
@@ -49,3 +50,6 @@ then
 else
   bail "Uncompress FAILED"
 fi
+
+# Make a symlink so we can save old copies if needed later
+mv terraform terraform-${TERRAFORM_VERSION} && ln -s terraform-${TERRAFORM_VERSION} terraform
